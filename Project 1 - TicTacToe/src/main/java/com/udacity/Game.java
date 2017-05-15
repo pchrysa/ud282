@@ -150,8 +150,78 @@ public class Game {
      */
     public String checkGameWinner(char [][]grid){
         String result = "None";
-        //Student code goes here ...
+        char checkWinner = '-';
+        checkWinner = checkAll(grid);
+        if (checkWinner == 'T') {
+            return "It's a Tie!";
+        } else if (checkWinner != '-') {
+            return checkWinner + " wins!";
+        }
+
         return result;
+    }
+
+    private char checkAll(char [][]grid) {
+        int countSteps = 0;
+        int xDiagonialFromLeft = 0;
+        int oDiagonialFromLeft = 0;
+        int xDiagonialFromRight = 0;
+        int oDiagonialFromRight = 0;
+        for (int i = 0; i < grid.length; i++) {
+            int xHorizontally = 0;
+            int oHorizontally = 0;
+            int xVertically = 0;
+            int oVertically = 0;
+
+            if ('x' == grid[i][i]) {
+                xDiagonialFromLeft++;
+            } else if ('o' == grid[i][i]) {
+                oDiagonialFromLeft++;
+            }
+
+            if ('x' == grid[i][ grid.length - 1 - i]) {
+                xDiagonialFromRight++;
+            } else if ('o' == grid[i][ grid.length - 1 - i]) {
+                oDiagonialFromRight++;
+            }
+
+            for (int j = 0; j < grid.length; j++) {
+                if ('x' == grid[i][j] || 'o' == grid[i][j]) {
+                    countSteps++;
+                }
+
+                if ('x' == grid[j][i]) {
+                    xVertically++;
+                } else if ('o' == grid[j][i]) {
+                    oVertically++;
+                }
+
+                if ('x' == grid[i][j]) {
+                    xHorizontally++;
+                } else if ('o' == grid[i][j]) {
+                    oHorizontally++;
+                }
+            }
+            if (xHorizontally == grid.length || xVertically == grid.length) {
+                return 'X';
+            }
+            if (oHorizontally == grid.length || oVertically == grid.length) {
+                return 'O';
+            }
+        }
+
+        if (xDiagonialFromLeft == grid.length || xDiagonialFromRight == grid.length) {
+            return 'X';
+        }
+        if (oDiagonialFromLeft == grid.length || oDiagonialFromRight == grid.length) {
+            return 'O';
+        }
+
+        if (countSteps == grid.length * grid.length) {
+            return 'T';
+        }
+
+        return '-';
     }
 
     /**
