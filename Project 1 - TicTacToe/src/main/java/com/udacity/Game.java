@@ -153,9 +153,9 @@ public class Game {
         char checkWinner = '-';
         checkWinner = checkAll(grid);
         if (checkWinner == 'T') {
-            return "It's a Tie!";
+            return "Tie";
         } else if (checkWinner != '-') {
-            return checkWinner + " wins!";
+            return checkWinner + " wins";
         }
 
         return result;
